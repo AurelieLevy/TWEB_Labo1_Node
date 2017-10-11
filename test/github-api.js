@@ -5,10 +5,10 @@ const { username, token } = require('../github-credentials.json');
 const should = chai.should();
 
 describe('The github API', () => {
-  it('allows me to get a list of pull requests', (done) => {
+  it('allows me to get a list of commit', (done) => {
     const owner = 'spring-projects';
     const repo = 'spring-boot';
-    const url = `https://api.github.com/repos/${owner}/${repo}`;
+    const url = `https://api.github.com/repos/${owner}/${repo}/git/commits`;
     request
       .get(url)
       .auth(username, token)
