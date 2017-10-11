@@ -29,7 +29,41 @@ function getCommit(sha, done) {
   });
 }
 
+function getCommits(done) {
+  getGetRequest('commits').end((err, res) => {
+    done(res.body);
+  });
+}
+
 console.log('Getting branches');
+
+/*
 getBranches((branches) => {
+  console.log(branches);
 });
-getCommit();
+*/
+
+const commitByAuthor = [];
+
+getCommits((commits) => {
+  commits.forEach((commit) => {
+    const { login } = commit.author;
+    if (!(login in commitByAuthor)) {
+      commitByAuthor[commit.author.login] = 0;
+    }
+
+    commitByAuthor[commit.author.login] += 1;
+
+    //console.log(commit.author.login);
+  }, this);
+  console.log(commitByAuthor);
+  
+  /*
+  for(key in commitByAuthor){
+    console.log(key);
+  }*/
+
+
+
+});
+
