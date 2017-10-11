@@ -5,6 +5,9 @@ const owner = 'spring-projects';
 const repo = 'spring-boot';
 const { username, token } = require('../github-credentials.json');
 
+const Storage = require('../src/storage');
+
+const githubStorage = new Storage('remij1', token, 'TWEB_Labo1');
 
 // -------- Functions
 
@@ -35,17 +38,12 @@ function getCommits(done) {
   });
 }
 
-console.log('Getting branches');
+console.log('Getting commits');
 
-/*
-getBranches((branches) => {
-  console.log(branches);
-});
-*/
-
-const commitByAuthor = [];
+const commitByAuthor = {};
 
 getCommits((commits) => {
+  // Pour chaque commits, on regarde l'auteur et on compte le nombre de commit total
   commits.forEach((commit) => {
     const { login } = commit.author;
     if (!(login in commitByAuthor)) {
@@ -53,17 +51,10 @@ getCommits((commits) => {
     }
 
     commitByAuthor[commit.author.login] += 1;
-
-    //console.log(commit.author.login);
   }, this);
-  console.log(commitByAuthor);
-  
-  /*
-  for(key in commitByAuthor){
-    console.log(key);
-  }*/
 
-
-
+  //On push sur github
+  console.log('Pushing on github');  
+  githubStorage.publish('docs/repo.json', JSON.stringify(commitByAuthor), 'new version of repo', (err, result) => {
+  }); 
 });
-
