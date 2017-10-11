@@ -20,6 +20,7 @@ function getGetRequest(subUrl) {
     .set('Accept', 'application/vnd.github.v3+json');
 }
 
+/*
 function getBranches(done) {
   getGetRequest('branches').end((err, res) => {
     done(res.body);
@@ -30,7 +31,7 @@ function getCommit(sha, done) {
   getGetRequest(`commits/${sha}`).end((err, res) => {
     done(res.body);
   });
-}
+} // */
 
 function getCommits(done) {
   getGetRequest('commits').end((err, res) => {
@@ -53,8 +54,8 @@ getCommits((commits) => {
     commitByAuthor[commit.author.login] += 1;
   }, this);
 
-  //On push sur github
+  // On push sur github
   console.log('Pushing on github');  
-  githubStorage.publish('docs/repo.json', JSON.stringify(commitByAuthor), 'new version of repo', (err, result) => {
-  }); 
+  githubStorage.publish('docs/repo.json', JSON.stringify(commitByAuthor), 'new version of repo.json', () => { });
+  console.log('repo.json pushed');
 });
