@@ -60,17 +60,19 @@ const authorTab = [];
 
 getCommits((commits) => {
   // Pour chaque commit, on récupère l'auteur (commit.author.login), le message
-  // (commit.commit.message), l'url html du commit (commit.html_url)
+  // (commit.commit.message), l'url html du commit (commit.html_url),
+  // la date
 
   commits.forEach((commit) => {
     const { login } = commit.committer;
     const { message } = commit.commit;
     const htmlUrl = commit.html_url;
+    const { sha } = commit;
 
     const sizeValue = 1;
-    const colorValue = 0;
+    const colorValue = 1;
 
-    const row = [message, login, sizeValue, colorValue, htmlUrl];
+    const row = [sha, login, sizeValue, colorValue, htmlUrl];
 
     commitsTab.data.push(row);
 
