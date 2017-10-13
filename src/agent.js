@@ -53,26 +53,30 @@ console.log('Getting commits');
 
 const commitsTab = {
   data: [
-    ['name', 'parent', 'size', 'color', 'url'],
-    ['Global', null, 0, 0, '']],
+    ['name', 'parent', 'size', 'color', 'date', 'message', 'url'],
+    ['Global', null, 0, 0, '', '', '']],
 };
 const authorTab = [];
 
 getCommits((commits) => {
   // Pour chaque commit, on récupère l'auteur (commit.author.login), le message
   // (commit.commit.message), l'url html du commit (commit.html_url),
-  // la date
+  // la date (commit.commit.author.date)
 
   commits.forEach((commit) => {
     const { login } = commit.committer;
     const { message } = commit.commit;
+    const { date } = commit.commit.author;
     const htmlUrl = commit.html_url;
     const { sha } = commit;
 
-    const sizeValue = 1;
-    const colorValue = 1;
+    const dateObject = new Date(date);
+    const time = dateObject.getTime();
 
-    const row = [sha, login, sizeValue, colorValue, htmlUrl];
+    const sizeValue = 1;
+    const colorValue = time;
+
+    const row = [sha, login, sizeValue, colorValue, date, message, htmlUrl];
 
     commitsTab.data.push(row);
 
@@ -82,7 +86,7 @@ getCommits((commits) => {
 
   // On ajoute les auteurs en tant que groupes sous-global
   Object.keys(authorTab).forEach((key) => {
-    commitsTab.data.splice(2, 0, [key, 'Global', 0, 0, '']);
+    commitsTab.data.splice(2, 0, [key, 'Global', 0, 0, '', '', '']);
   });
 
   // On push sur github
