@@ -2,9 +2,8 @@
   "name": "agent",
   "version": "1.0.0",
   "description": "",
-  "main": "agent.js",
+  "main": "src/agent.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lévy & Jacquemard",
   "license": "ISC",
