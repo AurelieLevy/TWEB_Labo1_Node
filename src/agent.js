@@ -1,11 +1,24 @@
 const request = require('superagent');
+const fs = require('fs');
+const path = require('path');
 
 // Vars
 const owner = 'ArdentDiscord';
 const repo = 'ArdentKotlin';
-const { username, token } = require('../github-credentials.json');
-
 const Storage = require('../src/storage');
+
+// Credentials
+/* On utilise par défaut les variables d'environnement définissant username et password.
+ * Si elles n'existent pas, on utilise le fichier json
+ */
+let { username, token } = process.env;
+
+if (!username || !token) { // Si les variables d'environnement n'existent pas
+  // On utilise fs plutôt qu'un require, car un require doit être global selon les normes airbnb
+  const jsonCredentials = JSON.parse(fs.readFileSync(path.join(__dirname, '../github-credentials.json'), 'utf8'));
+  console.log('No enviromment variable found (username, token), using json "github-credentials"');
+  ({ username, token } = jsonCredentials);
+}
 
 const githubStorage = new Storage('remij1', token, 'TWEB_Labo1');
 
@@ -19,19 +32,6 @@ function getGetRequest(subUrl, page = 1) {
     .auth(username, token)
     .set('Accept', 'application/vnd.github.v3+json');
 }
-
-/*
-function getBranches(done) {
-  getGetRequest('branches').end((err, res) => {
-    done(res.body);
-  });
-}
-
-function getCommit(sha, done) {
-  getGetRequest(`commits/${sha}`).end((err, res) => {
-    done(res.body);
-  });
-} // */
 
 function getCommits(done, page = 1) {
   let commits = [];

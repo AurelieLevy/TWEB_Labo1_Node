@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/agent.js",
   "scripts": {
-    "start":"node src/agent.js"
+    "start": "node src/agent.js"
   },
   "author": "Lévy & Jacquemard",
   "license": "ISC",
