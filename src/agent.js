@@ -3,10 +3,10 @@ const fs = require('fs');
 const path = require('path');
 
 // Vars
-// const owner = 'ArdentDiscord';
-// const repo = 'ArdentKotlin';
-const owner = 'remij1';
-const repo = 'TWEB_Labo1';
+const owner = 'ArdentDiscord';
+const repo = 'ArdentKotlin';
+// const owner = 'remij1';
+// const repo = 'TWEB_Labo1';
 const Storage = require('../src/storage');
 
 // Credentials
