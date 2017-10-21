@@ -5,11 +5,13 @@ const path = require('path');
 // Vars
 const owner = 'ArdentDiscord';
 const repo = 'ArdentKotlin';
-const Storage = require('../src/storage');
+const Storage = require('../src/storage.js');
 
 // Credentials
 /* On utilise par défaut les variables d'environnement définissant username et password.
  * Si elles n'existent pas, on utilise le fichier json
+ * Pour ajouter des variables d'environnement à Heroku:
+ * heroku config:set username=user12 token=asdvbixwwe -a tweb-tree
  */
 let { username, token } = process.env;
 
