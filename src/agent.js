@@ -5,7 +5,7 @@ const path = require('path');
 // Vars
 const owner = 'ArdentDiscord';
 const repo = 'ArdentKotlin';
-const Storage = require('../src/storage.js');
+const Storage = require('../src/storage');
 
 // Credentials
 /* On utilise par défaut les variables d'environnement définissant username et password.
